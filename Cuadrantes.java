@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class Cuadrantes23 {
+public class Cuadrantes {
     public static void main(String[]args){
         Scanner tec = new Scanner(System.in);
         System.out.print("Introduce un punto para obtener el cuadrante correcto(x,y) : ");
