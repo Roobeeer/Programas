@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class SumarImparesYPares {
+public class SumarImparesYParespa{
     public static void main(String[]args){
         Scanner tec = new Scanner(System.in);
         System.out.print("Introduce una cantidad de numeros : ");
