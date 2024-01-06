@@ -1,5 +1,4 @@
 import java.util.*;
-import javax.swing.*;
 
 class AdivinaNumero{
     public static void main(String[]args){
@@ -21,7 +20,7 @@ class AdivinaNumero{
         }
         }
         System.out.println("¡CORRECTO! \nHas adivinado el número "+aleatorio +" en "+ intentos + " intentos");
-        
+        tec.close();
 
 
       
