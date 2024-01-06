@@ -19,5 +19,6 @@ public class AdivinaNumeroIntentarRehacer {
             }
             }
             System.out.println("Correcto. Lo has conseguido en "+ intentos + " intentos");
+            tec.close();
         }
     }
