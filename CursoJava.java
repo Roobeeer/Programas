@@ -1,4 +1,4 @@
-import javax.swing.JOptionPane;
+/*import javax.swing.JOptionPane;
 public class CursoJava {
     public static void main(String[]args){
         String nombre = "Rober";
@@ -39,5 +39,23 @@ public class CursoJava {
 
 
 
+    }
+}
+*/
+import javax.swing.*;
+public class CursoJava {
+    public static void main(String[]args){
+        //BUCLE WHILE
+        String clave = "Hola";
+        String pass = "";
+
+        while(clave.equals(pass)==false){
+            pass = JOptionPane.showInputDialog("Introduce la contraseña por favor");
+
+            if(clave.equals(pass)==false){
+                System.out.println("Contraseña incorrecta, inténtelo de nuevo");
+            }
+        }
+        System.out.println("Contraseña correcta. Acceso permitido");
     }
 }
