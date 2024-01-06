@@ -1,16 +1,16 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class SumarImparesYParespa{
     public static void main(String[]args){
         Scanner tec = new Scanner(System.in);
-        System.out.print("Introduce una cantidad de numeros : ");
-        int num = tec.nextInt();
-        int par = 0;
-        int impar = 0;
-        for(int i = 0;i<num;i++){
-            System.out.print("Introduce el número "+(i+1) + " :");
-            int numero = tec.nextInt();
-            
+        System.out.println("Programa sumar números pares e impares \n ¿Cuántos números desea introducir?");
+        int numeros = tec.nextInt();
+        double par=0;
+        double impar=0;
+
+        for ( int i=0;i<numeros;i++){
+            System.out.print("Introduce el número "+(i+1)+" :");
+            double numero = tec.nextDouble();
 
             if(numero % 2 ==0){
                 par+=numero;
@@ -18,12 +18,8 @@ public class SumarImparesYParespa{
                 impar+=numero;
             }
         }
-        System.out.println("La suma de los números pares es : "+par);
-        System.out.println("La suma de los números impares es : "+impar);
         tec.close();
-                
-
-
+        System.out.println("La suma de los numeros pares es : "+par);
+        System.out.println("La suma de los números impares es : "+impar);
     }
-    
-    }
+}
