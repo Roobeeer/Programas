@@ -1,5 +1,5 @@
 import java.util.*;
-class Logde2VOLVERAHACER{
+class Logde2VOLVERAHACE{
     public static void main(String[]args){
         Scanner tec = new Scanner(System.in);
         System.out.println("Introduce un número entero positivo : ");
