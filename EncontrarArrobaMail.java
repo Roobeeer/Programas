@@ -1,25 +1,36 @@
 import javax.swing.*;
+
 class EncontrarArrobaMail{
     public static void main(String[]args){
-        String correo = JOptionPane.showInputDialog("Introduce tu correo electrónico");
+        String cadena  = JOptionPane.showInputDialog("Introduce tu correo electrónico");
         char arroba = '@';
-        int arroba2 = 0;
-        boolean punto = false;
+        char punto = '.';
+        int haypunto = 0;
+        int hayarroba = 0;
+        boolean cadenaverdadera = false;
 
-        for(int i =0;i<correo.length();i++){
-            if(correo.charAt(i)==arroba){
-                arroba2++;
+        for(int i =0;i<cadena.length();i++){
+            if(cadena.charAt(i)==arroba){
+                hayarroba++;
             }
-            if(correo.charAt(i)=='.'){
-                punto=true;
+            if(cadena.charAt(i)==punto){
+                haypunto++;
             }
-        }
-        if(arroba2==1 && punto==true){
-            System.out.println("El correo es correcto");
-        }else{
-            System.out.println("El correo no es correcto");
-        }
+            }
 
+            if(cadena.charAt(cadena.length()-1)==punto){
+                cadenaverdadera = true;
+            }
+            int dondearroba = cadena.indexOf("@");
+            int dondepunto = cadena.indexOf(".");
+            if(cadenaverdadera==false && hayarroba==1 && (haypunto==1 && dondepunto>dondearroba)){
+                System.out.println("El correo tiene la forma correcta");
+            }else{
+                System.out.println("El correo no tiene la forma correcta");
+
+            }
+                  
+
+        
+        }
     }
-
-}
