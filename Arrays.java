@@ -2,14 +2,20 @@
 public class Arrays {
         public static void main(String[]args){
             //Matriz de numeros aleatorios
-            int[] matriz_aleatorios = new int[150];
-            for (int i = 0;i<matriz_aleatorios.length;i++){
-                matriz_aleatorios[i] = (int)Math.round(Math.random()*100);
+            int[]matriz_aleatoria = new int[150];
+            for(int i=1;i<matriz_aleatoria.length;i++){
+                matriz_aleatoria[i]= (int)Math.round(Math.random()*100);
 
             }
-            for(int numeros:matriz_aleatorios){
+                        
+
+
+           for(int numeros:matriz_aleatoria){
                 System.out.print(numeros+ ", ");
-            }
+           }
+        }
+    }
+            
 
             /*int array[]={5, 38, -15, 92, 71, 34, 21, 51, 52, 654, 61, 646, 76, 98};
             
@@ -52,8 +58,5 @@ public class Arrays {
                 */
 
             //Otra manera de for
-            
-            }
 
-        }
 
