@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 class FactorialYCombinatoria {
       public static void main(String[] args) {
@@ -11,7 +9,6 @@ class FactorialYCombinatoria {
       long m2 = Long.parseLong(m);
       System.out.println("El factorial de "+m + " es --> "+ factorialm(m2) );
 
-      long resta = m2-n2;
       System.out.println("La combinatoria entre "+ n2 + " y "+m2 + " es --> "+(combinatoria(n2,m2)));
 
 
