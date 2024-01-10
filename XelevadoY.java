@@ -1,8 +1,7 @@
-import java.util.*;
 public class XelevadoY {
     public static void main(String[]args){
             System.out.println(Elevar(3, 2));
-            
+
             System.out.println(Elevar(-3, 2));
             System.out.println(Elevar(3, -2));
             System.out.println(Elevar(3, 0));
