@@ -7,7 +7,7 @@ class FactorialYCombinatoria{
       int n = tec.nextInt();
       System.out.print("Introduce el valor de m : ");
       int m = tec.nextInt();
-
+      tec.close();
       System.out.println("El resultado combinatorio de "+n+ " y "+m + " es --> " +(combinatoria(n,m)));
     }catch(java.util.InputMismatchException e){
       System.out.println("Introduce un número entero válido");
