@@ -1,24 +1,27 @@
-import java.util.Scanner;
-public class TransformarCadena {
+import java.util.*;
+
+class TransformarCadena{
     public static void main(String[]args){
-        Scanner tec = new Scanner(System.in);
-        System.out.println("Introduce una cadena para transformarla --> ");
-        String cadena = tec.nextLine();
-        String cadena2 = cadena.toLowerCase();
-        String cadenainversa= "";
+    Scanner tec = new Scanner(System.in);
+    System.out.println("Introduce una cadena para transformarla --> ");
+    String cadena = tec.nextLine();
+    System.out.println("Tu cadena transformada es --> "+transformarCadena(cadena));
+    tec.close();
+    }
 
-        for(int i = 0; i<cadena.length();i++){
-            char caracter = cadena.charAt(i);
+    public static String transformarCadena(String s){
+        String resultado = "";
+        for(int i = 0; i<s.length();i++){
+            char caracter= s.charAt(i);
             if(Character.isUpperCase(caracter)){
-                System.out.print(Character.toLowerCase(caracter));
+                resultado+= Character.toLowerCase(caracter);
             }else if(Character.isLowerCase(caracter)){
-                System.out.print(Character.toUpperCase(caracter));
+                resultado+= Character.toUpperCase(caracter);
             }else{
-                System.out.print(caracter);
+                resultado+=caracter;
             }
-
         }
+        return resultado;
 
     }
-    
 }
