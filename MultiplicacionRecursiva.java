@@ -14,7 +14,7 @@ class MultiplicacionRecursiva{
         int a = tec.nextInt();
         System.out.print("Introduce el segundo número(mayor que 0) --> ");
         int b = tec.nextInt();
-
+        tec.close();
         System.out.println("El resultado de la multiplicación es --> "+multiplicaRecurs(a,b));
     }
 }
