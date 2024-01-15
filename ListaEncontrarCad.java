@@ -70,5 +70,6 @@ public class ListaEncontrarCad {
 
         // Mostrar el resultado
         System.out.println("La cadena '" + cadenaBuscada + "' aparece " + resultado + " veces en la lista.");
+        tec.close();
     }
 }
