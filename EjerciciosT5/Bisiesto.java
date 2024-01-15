@@ -1,3 +1,4 @@
+package EjerciciosT5;
 // Escribe un método en JAVA que reciba un entero que represente un año, y cheque si el
 //año es bisiesto (366 días). El método retornará true cuando sea bisiesto, y false en otro
 //caso. Un año es bisiesto si es divisible por 4 y no por 100, o si es divisible por 400

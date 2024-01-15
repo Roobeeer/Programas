@@ -39,8 +39,7 @@ public class Arraysbidimensionales {
             for(int z:fila){
                 System.out.print(z + " ");
             }
-        }*/
-
+        }*
         //Como recorrer el array bidimensional
             //Para un elemento 
         //System.out.println("Valor almacenado en la posición 2,3 "+matrix[2][3]);
