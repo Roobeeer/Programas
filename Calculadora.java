@@ -8,8 +8,7 @@ class Calculadora{
             cadena = tec.nextLine();
             if(cadena.contains("salir")){
                 System.out.println("Has salido del programa ");
-                System.exit(0);
-            }
+                }
         
         cadena  = cadenabuena(cadena);
         String operacion = "";
@@ -28,18 +27,20 @@ class Calculadora{
             ind = cadena.indexOf("/");
         }else{
             System.out.println("Operación no válida ");
+            continue;
         }
     
 
     double a = 0.0;
     double b = 0.0;
     try {
-        a = Double.parseDouble(cadena.substring(0, ind).trim());
-        b = Double.parseDouble(cadena.substring(ind + 1).trim());
+        a = Double.parseDouble(cadena.substring(0, ind));
+        b = Double.parseDouble(cadena.substring(ind + 1));
     } catch (Exception e) {
-        System.out.println("Fórmula errónea, el programa no puede continuar");
+        System.out.println("Fórmula inválida, el programa no puede continuar");
+        break;
     }
-    double resultado = operaciones(cadena,a,b);
+    double resultado = operaciones(operacion,a,b);
 
     if(Math.floor(resultado)==resultado){
         System.out.println("El resultado es --> "+(int)resultado);
@@ -64,14 +65,15 @@ tec.close();
             resultado = a*b;
             break;
             case "/":
-            if(b!=0){
-                resultado = a/b;
-            }else{
-                System.out.println("No se permite la división entre ceros");
-            }
+                if(b!=0){
+                    resultado = a/b;
+                }else{
+                    System.out.println("No se permite la división entre ceros");
+                    break;
+                }
             break;
             default: 
-            System.out.println("Operación no válida");
+                System.out.println("Operación no válida");
         }
         return resultado;
 
