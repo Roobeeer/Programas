@@ -9,6 +9,7 @@ class PesoIdealIntentarRehacer{
 
         }while(genero.equalsIgnoreCase("H")==false && genero.equalsIgnoreCase("M")==false);
 
+
         int altura = Integer.parseInt(JOptionPane.showInputDialog("Introduce tu altura"));
 
         int pesoideal=0;
