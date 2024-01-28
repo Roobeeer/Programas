@@ -47,9 +47,10 @@ public class Calculadora2{
             }
             double resultado = Operaciones.operaciones(cadena,a,b);
             if(Math.floor(resultado)==resultado){
-                System.out.println("El resultado es --> "+(int)resultado);
+                System.out.println("El resultado de la operacion '"+cadena+"' es --> "+(int)resultado);
             }else{
-                System.out.println("El resultado es --> "+resultado);
+                System.out.println("El resultado de la operacion "+cadena+" es --> "+resultado);
+
             }
 
         }while(!cadena.equalsIgnoreCase("salir"));

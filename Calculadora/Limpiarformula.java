@@ -5,6 +5,6 @@ public class Limpiarformula {
         s = s.replaceAll(" ","");
         s = s.replace("(","").replace(")","");
         s = s.replace("--","+").replace("-+","-").replace("+-","-").replace("++","+");
-        return s;
+            return s;
 }
 }
