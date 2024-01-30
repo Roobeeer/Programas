@@ -18,6 +18,7 @@ public class Operaciones {
         double division = 0;
         if(b==0){
             System.out.println("No se permite la division entre ceros ");
+            return Double.NaN;
         }else{
             division = a/b;
         }
@@ -26,8 +27,14 @@ public class Operaciones {
     }
     public static double elevarnumero( double a, double b){
         double resultado = 1;
-        for (int i=1;i<=b;i++){
+        for (int i=1;i<=Math.abs(b);i++){
             resultado = resultado*a;
+        }
+        if(b<0){
+            resultado = 1/resultado;
+        }
+        else{
+            resultado = resultado;
         }
         return resultado;
      

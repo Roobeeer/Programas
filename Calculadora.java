@@ -1,87 +1,136 @@
 import java.util.Scanner;
 
-public class Calculadora {
+class Calculadora{
+    static Scanner tec = new Scanner(System.in);
+public static void main(String[]args){
+    String cadena = "";
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    do{
+        System.out.println("Introduce una cadena de operaciones con dos números");
+        System.out.print(">> ");
+        cadena = tec.nextLine();
+        cadena = formulabuena(cadena);
+        System.out.println("Fórmula --> "+cadena);
 
-        do {
-            System.out.print(">> ");
-            String formula = scanner.nextLine();
-
-            if (formula.equalsIgnoreCase("salir")) {
-                break;
-            }
-
-            try {
-                formula = sanitizeFormula(formula);
-                String op = getOperator(formula);
-                int ind = formula.indexOf(op);
-
-                if (op.equals("+") || op.equals("-") || op.equals("*") || op.equals("/")) {
-                    double a = extractOperand(formula, 0, ind);
-                    double b = extractOperand(formula, ind + 1, formula.length());
-
-                    double result = performOperation(op, a, b);
-
-                    if (result % 1 == 0) {
-                        System.out.println((int) result);
-                    } else {
-                        System.out.println(result);
-                    }
-                } else {
-                    System.out.println("Operación no válida");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Fórmula errónea");
-            }
-
-        } while (true);
-
-        scanner.close();
-    }
-
-    private static String sanitizeFormula(String formula) {
-        // Remove spaces and handle +- and -+
-        formula = formula.replaceAll("\\s", "");
-        formula = formula.replace("+-", "-");
-        formula = formula.replace("-+", "-");
-        return formula;
-    }
-
-    private static String getOperator(String formula) {
-        if (formula.contains("*")) {
-            return "*";
-        } else if (formula.contains("/")) {
-            return "/";
-        } else if (formula.contains("+")) {
-            return "+";
-        } else if (formula.contains("-")) {
-            return "-";
-        } else {
-            throw new IllegalArgumentException("Operación no válida");
+        if(cadena.contains("salir")){
+            System.out.println("Saliendo del programa");
+            break;
         }
+
+    String op = "";
+    int ind = 0;
+    if(cadena.contains("+")){
+        op = "+";
+        ind = cadena.indexOf("+",1);
+    }else if(cadena.contains("-")){
+        op = "-";
+        ind = cadena.indexOf("-",1);
+        
+    }else if(cadena.contains("*")){
+        op = "*";
+        ind = cadena.indexOf("*");
+    }else if(cadena.contains("/")){
+        op = "/";
+        ind = cadena.indexOf("/");
+    }else if(cadena.contains("^")){
+        op = "^";
+        ind = cadena.indexOf("^");
+    }else{
+        System.out.println("Operación no válida");
+        continue;
     }
 
-    private static double extractOperand(String formula, int start, int end) {
-        return Double.parseDouble(formula.substring(start, end));
-    }
+    double a = 0.0;
+    double b = 0.0;
 
-    private static double performOperation(String op, double a, double b) {
-        switch (op) {
-            case "+":
-                return a + b;
-            case "-":
-                return a - b;
-            case "*":
-                return a * b;
-            case "/":
-                if (b == 0) {
-                    throw new ArithmeticException("División por cero no permitida");
-                }
-                return a / b;
-            default:
-                throw new IllegalArgumentException("Operación no válida");
+    try{
+        if(ind>0){
+            String strA = cadena.substring(0,ind);
+            String strB = cadena.substring(ind+1);
+
+            a = Double.parseDouble(strA);
+            b = Double.parseDouble(strB);
+        }else{
+            System.out.println("Operación no válida");
+            continue;
         }
+    }catch(NumberFormatException e){
+        System.err.println("Error al convertir los números de la cadena a formato double");
+        continue;
     }
+    double resultado = operaciones(op,a,b);
+    cadena = formulabuena(resultado+"");
+    System.out.println("Resultado --> "+resultado);
+
+    }while(!cadena.equalsIgnoreCase("salir"));
+}
+
+static String formulabuena(String cadena){
+    do{
+    cadena = cadena.replaceAll(" ","");
+    cadena = cadena.replace("(","").replace(")","");
+    cadena = cadena.replace("++","+").replace("--","+").replace("+-","-").replace("-+","-");
+    // Eliminar signos duplicados
+    cadena = cadena.replaceAll("(\\+{2,})", "+");
+    cadena = cadena.replaceAll("-{2,}", "-");
+    cadena = cadena.replace("/+","/");
+        if(cadena.startsWith("+")){
+            cadena = cadena.substring(1);
+        }
+    return cadena;
+    }while(!cadena.equalsIgnoreCase("salir"));
+}
+
+static double suma(double a, double b){
+     return  a+b;
+}
+static double resta(double a, double b){
+    return a-b;
+}
+static double multiplicacion(double a, double b){
+    return a*b;
+}
+static double division(double a, double b){
+    double resultado = 0;
+    if(b==0){
+        System.out.println("No se permite la división entre ceros");
+        return 0;
+    }else{
+        resultado = a/b;
+    }
+    return resultado;
+   
+}
+static double elevar(double a, double b){
+    if(b==0){
+        return 1;
+    }else{
+        return Math.pow(a,b);
+    }
+    
+}
+static double operaciones(String operacion, double a, double b){
+    double resultado= 0;
+    switch(operacion){
+        case "+":
+        resultado = suma(a,b);
+        break;
+        case "-":
+        resultado = resta(a, b);
+        break;
+        case "*":
+        resultado = multiplicacion(a, b);
+        break;
+        case "/":
+        resultado = division(a, b);
+        break;
+        case "^":
+        resultado = elevar(a, b);
+        break;
+        default : 
+        System.out.println("Inválido");
+        break;
+    }
+    return resultado;
+}
 }
