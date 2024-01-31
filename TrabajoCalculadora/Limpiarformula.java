@@ -1,7 +1,6 @@
 package TrabajoCalculadora;
 class Limpiarformula{
     static String formulabuena(String cadena) {
-        do {
             cadena = cadena.replaceAll(" ", "");
             cadena = cadena.replace("(", "").replace(")", "");
             cadena = cadena.replace("++", "+").replace("--", "+").replace("+-", "-").replace("-+", "-");
@@ -14,6 +13,5 @@ class Limpiarformula{
                 cadena = cadena.substring(1);
             }
             return cadena;
-        } while (!cadena.equalsIgnoreCase("salir"));
-    }
+}
 }

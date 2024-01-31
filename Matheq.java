@@ -1,122 +1,119 @@
 import java.util.Scanner;
 
-class Matheq {
-    static Scanner tec = new Scanner(System.in);
-    static double resultado;  // Declarar la variable resultado
+public class Matheq {
 
     public static void main(String[] args) {
-        String cadena = "";
+        Scanner tec = new Scanner(System.in);
 
         do {
-            System.out.println("Introduce una cadena de operaciones con dos números Matheq");
+            System.out.println("Introduce una cadena de operaciones con dos números Calculadora");
             System.out.print(">> ");
-            cadena = tec.nextLine();
-            cadena = formulabuena(cadena);
-            System.out.println("Fórmula --> " + cadena);
+            String formula = tec.nextLine();
+            formula = formulabuena(formula);
+            System.out.println("Fórmula --> " + formula);
 
-            if (cadena.contains("salir")) {
+            if (formula.contains("salir")) {
                 System.out.println("Saliendo del programa");
                 break;
             }
 
-            try {
-                resultado = evaluarExpresion(cadena);
-                imprimirResultado(resultado);
-            } catch (Exception e) {
-                System.err.println("Error al evaluar la expresión: " + e.getMessage());
+            String op = "";
+            int ind = 0;
+            if (formula.contains("*")) {
+                op = "*";
+                ind = formula.indexOf("*", 1);
+            } else if (formula.contains("/")) {
+                op = "/";
+                ind = formula.indexOf("/", 1);
+            } else if (formula.contains("+")) {
+                op = "+";
+                ind = formula.indexOf("+", 1);
+            } else if (formula.contains("-")) {
+                op = "-";
+                // Buscar el índice de '-' que no esté al inicio
+                ind = formula.indexOf("-", 1);
+            } else if (formula.contains("^")) {
+                op = "^";
+                ind = formula.indexOf("^", 1);
+            } else {
+                System.out.println("Operación no válida");
+                continue;
             }
 
-        } while (!cadena.equalsIgnoreCase("salir"));
+            double a = 0.0;
+            double b = 0.0;
+
+            try {
+                if (ind > 0) {
+                    String strA = formula.substring(0, ind);
+                    String strB = formula.substring(ind + 1);
+
+                    a = Double.parseDouble(strA);
+                    b = Double.parseDouble(strB);
+                } else {
+                    System.out.println("Operación no válida");
+                    continue;
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("Error al convertir los números de la cadena a formato double");
+                continue;
+            }
+
+            double resultado;
+            if (op.equals("^")) {
+                resultado = elevar(a, b);
+            } else {
+                resultado = operaciones(op, a, b);
+            }
+
+            imprimirResultado(resultado);
+
+        } while (true);
 
         tec.close();  // Cierre del Scanner
     }
 
-    static String formulabuena(String cadena) {
-        cadena = cadena.replaceAll(" ", "");
-        cadena = cadena.replace("--", "+").replace("+-", "-").replace("-+", "-");
-        cadena = cadena.replaceAll("(\\+{2,})", "+");
-        cadena = cadena.replaceAll("-{2,}", "-");
-        cadena = cadena.replace("/+", "/");
-        cadena = cadena.replace("*+", "*");
+    static String formulabuena(String formula) {
+        formula = formula.replaceAll(" ", "");
+        formula = formula.replace("(", "").replace(")", "");
+        formula = formula.replace("++", "+").replace("--", "+").replace("+-", "-").replace("-+", "-");
+        // Eliminar signos duplicados
+        formula = formula.replaceAll("(\\+{2,})", "+");
+        formula = formula.replaceAll("-{2,}", "-");
+        formula = formula.replace("/+", "/");
+        formula = formula.replace("*+", "*");
 
-        if (cadena.startsWith("+")) {
-            cadena = cadena.substring(1);
+        if (formula.startsWith("+")) {
+            formula = formula.substring(1);
         }
 
-        return cadena;
+        return formula;
     }
 
-    static double evaluarExpresion(String expresion) {
-        if (expresion.startsWith("-")) {
-            expresion = "0" + expresion;
+    static double operaciones(String operacion, double a, double b) {
+        double resultado = 0;
+        switch (operacion) {
+            case "+":
+                resultado = suma(a, b);
+                break;
+            case "-":
+                resultado = resta(a, b);
+                break;
+            case "*":
+                resultado = multiplicacion(a, b);
+                break;
+            case "/":
+                resultado = division(a, b);
+                break;
+            default:
+                System.out.println("Operación no válida");
+                System.exit(0);
         }
-        return evaluarTermino(expresion);
-    }
-
-    static double evaluarTermino(String termino) {
-        int index = 1;
-
-        while (index < termino.length()) {
-            int siguienteOperador = termino.indexOf("+", index);
-            if (siguienteOperador == -1) {
-                siguienteOperador = termino.indexOf("-", index);
-            }
-
-            if (siguienteOperador == -1) {
-                siguienteOperador = termino.length();
-            }
-
-            String factor = termino.substring(index, siguienteOperador);
-            double valor = evaluarFactor(factor);
-
-            if (index == 1) {
-                resultado += valor;
-            } else {
-                char operador = termino.charAt(index - 1);
-                if (operador == '+') {
-                    resultado += valor;
-                } else if (operador == '-') {
-                    resultado -= valor;
-                }
-            }
-
-            index = siguienteOperador + 1;
-        }
-
         return resultado;
     }
 
-    static double evaluarFactor(String factor) {
-        int index = 1;
-
-        while (index < factor.length()) {
-            int siguienteOperador = factor.indexOf("*", index);
-            if (siguienteOperador == -1) {
-                siguienteOperador = factor.indexOf("/", index);
-            }
-
-            if (siguienteOperador == -1) {
-                siguienteOperador = factor.length();
-            }
-
-            String elemento = factor.substring(index, siguienteOperador);
-            double valor = Double.parseDouble(elemento);
-
-            if (index == 1) {
-                resultado = valor;
-            } else {
-                char operador = factor.charAt(index - 1);
-                if (operador == '*') {
-                    resultado *= valor;
-                } else if (operador == '/') {
-                    resultado /= valor;
-                }
-            }
-
-            index = siguienteOperador + 1;
-        }
-
-        return resultado;
+    static double elevar(double base, double exponente) {
+        return Math.pow(base, exponente);
     }
 
     static void imprimirResultado(double resultado) {
@@ -126,5 +123,28 @@ class Matheq {
             System.out.printf("Resultado --> %.3f\n", resultado);
             System.out.println("(resultado redondeado a las 3 primeras cifras decimales)");
         }
+    }
+
+    static double suma(double a, double b) {
+        return a + b;
+    }
+
+    static double resta(double a, double b) {
+        return a - b;
+    }
+
+    static double multiplicacion(double a, double b) {
+        return a * b;
+    }
+
+    static double division(double a, double b) {
+        double resultado = 0;
+        if (b == 0) {
+            System.out.println("No se permite la división entre ceros");
+            System.exit(0);
+        } else {
+            resultado = a / b;
+        }
+        return resultado;
     }
 }
