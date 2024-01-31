@@ -6,9 +6,11 @@ class Calculadora{
 
     public static void main(String[] args) {
         String cadena = "";
+        System.out.println("PROGRAMA CALCULADORA");
+        System.out.println("--------------------");
 
         do {
-            System.out.println("Introduce una cadena de operaciones con dos números CalculadoraOficial");
+            System.out.println("Introduce una cadena de operaciones con dos números");
             System.out.print(">> ");
             cadena = tec.nextLine();
             cadena = Limpiarformula.formulabuena(cadena);
