@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
-class Matheq{
+class Matheq {
     static Scanner tec = new Scanner(System.in);
+    static double resultado;  // Declarar la variable resultado
 
     public static void main(String[] args) {
         String cadena = "";
@@ -18,133 +19,112 @@ class Matheq{
                 break;
             }
 
-            String op = "";
-            int ind = 0;
-            if (cadena.contains("+")) {
-                op = "+";
-                ind = cadena.indexOf("+", 1);
-
-            } else if (cadena.contains("-")) {
-                op = "-";
-                // Buscar el índice de '-' que no esté al inicio
-                ind = cadena.indexOf("-", 1);
-            } else if (cadena.contains("*")) {
-                op = "*";
-                ind = cadena.indexOf("*");
-            } else if (cadena.contains("/")) {
-                op = "/";
-                ind = cadena.indexOf("/");
-            } else if (cadena.contains("^")) {
-                op = "^";
-                ind = cadena.indexOf("^");
-            } else {
-                System.out.println("Operación no válida");
-                continue;
-            }
-
-            double a = 0.0;
-            double b = 0.0;
-
             try {
-                if (ind > 0) {
-                    String strA = cadena.substring(0, ind);
-                    String strB = cadena.substring(ind + 1);
-
-                    a = Double.parseDouble(strA);
-                    b = Double.parseDouble(strB);
-                } else {
-                    System.out.println("Operación no válida");
-                    continue;
-                }
-            } catch (NumberFormatException e) {
-                System.err.println("Error al convertir los números de la cadena a formato double");
-                continue;
-            }
-
-            double resultado = operaciones(op, a, b);
-            cadena = formulabuena(resultado + "");
-            if(Math.floor(resultado)==resultado){
-            System.out.println("Resultado --> " + (int)resultado);
-            }else{
-                System.out.printf("Resultado --> "+resultado);
-               System.out.println("\n(resultado redondeado a las 3 primeras cifras decimales)");
-               System.out.printf("Resultado --> %.3f\n", resultado);
+                resultado = evaluarExpresion(cadena);
+                imprimirResultado(resultado);
+            } catch (Exception e) {
+                System.err.println("Error al evaluar la expresión: " + e.getMessage());
             }
 
         } while (!cadena.equalsIgnoreCase("salir"));
+
+        tec.close();  // Cierre del Scanner
     }
 
     static String formulabuena(String cadena) {
-        do {
-            cadena = cadena.replaceAll(" ", "");
-            cadena = cadena.replace("(", "").replace(")", "");
-            cadena = cadena.replace("++", "+").replace("--", "+").replace("+-", "-").replace("-+", "-");
-            // Eliminar signos duplicados
-            cadena = cadena.replaceAll("(\\+{2,})", "+");
-            cadena = cadena.replaceAll("-{2,}", "-");
-            cadena = cadena.replace("/+", "/");
-            cadena = cadena.replace("*+", "*");
-            if (cadena.startsWith("+")) {
-                cadena = cadena.substring(1);
+        cadena = cadena.replaceAll(" ", "");
+        cadena = cadena.replace("--", "+").replace("+-", "-").replace("-+", "-");
+        cadena = cadena.replaceAll("(\\+{2,})", "+");
+        cadena = cadena.replaceAll("-{2,}", "-");
+        cadena = cadena.replace("/+", "/");
+        cadena = cadena.replace("*+", "*");
+
+        if (cadena.startsWith("+")) {
+            cadena = cadena.substring(1);
+        }
+
+        return cadena;
+    }
+
+    static double evaluarExpresion(String expresion) {
+        if (expresion.startsWith("-")) {
+            expresion = "0" + expresion;
+        }
+        return evaluarTermino(expresion);
+    }
+
+    static double evaluarTermino(String termino) {
+        int index = 1;
+
+        while (index < termino.length()) {
+            int siguienteOperador = termino.indexOf("+", index);
+            if (siguienteOperador == -1) {
+                siguienteOperador = termino.indexOf("-", index);
             }
-            return cadena;
-        } while (!cadena.equalsIgnoreCase("salir"));
-    }
 
-    static double suma(double a, double b) {
-        return a + b;
-    }
+            if (siguienteOperador == -1) {
+                siguienteOperador = termino.length();
+            }
 
-    static double resta(double a, double b) {
-        return a - b;
-    }
+            String factor = termino.substring(index, siguienteOperador);
+            double valor = evaluarFactor(factor);
 
-    static double multiplicacion(double a, double b) {
-        return a * b;
-    }
+            if (index == 1) {
+                resultado += valor;
+            } else {
+                char operador = termino.charAt(index - 1);
+                if (operador == '+') {
+                    resultado += valor;
+                } else if (operador == '-') {
+                    resultado -= valor;
+                }
+            }
 
-    static double division(double a, double b) {
-        double resultado = 0;
-        if (b == 0) {
-            System.out.println("No se permite la división entre ceros");
-            return 0;
-        } else {
-            resultado = a / b;
+            index = siguienteOperador + 1;
         }
+
         return resultado;
     }
 
-    static double elevar(double a, double b) {
-        if (b == 0) {
-            return 1;
-        } else {
-            return Math.pow(a, b);
+    static double evaluarFactor(String factor) {
+        int index = 1;
+
+        while (index < factor.length()) {
+            int siguienteOperador = factor.indexOf("*", index);
+            if (siguienteOperador == -1) {
+                siguienteOperador = factor.indexOf("/", index);
+            }
+
+            if (siguienteOperador == -1) {
+                siguienteOperador = factor.length();
+            }
+
+            String elemento = factor.substring(index, siguienteOperador);
+            double valor = Double.parseDouble(elemento);
+
+            if (index == 1) {
+                resultado = valor;
+            } else {
+                char operador = factor.charAt(index - 1);
+                if (operador == '*') {
+                    resultado *= valor;
+                } else if (operador == '/') {
+                    resultado /= valor;
+                }
+            }
+
+            index = siguienteOperador + 1;
         }
 
+        return resultado;
     }
 
-    static double operaciones(String operacion, double a, double b) {
-        double resultado = 0;
-        switch (operacion) {
-            case "+":
-                resultado = suma(a, b);
-                break;
-            case "-":
-                resultado = resta(a, b);
-                break;
-            case "*":
-                resultado = multiplicacion(a, b);
-                break;
-            case "/":
-                resultado = division(a, b);
-                break;
-            case "^":
-                resultado = elevar(a, b);
-                break;
-            default:
-                System.out.println("Inválido");
-                break;
+    static void imprimirResultado(double resultado) {
+        if (Math.floor(resultado) == resultado) {
+            System.out.println("Resultado --> " + (int) resultado);
+        } else {
+            System.out.printf("Resultado --> %.3f\n", resultado);
+            System.out.println("(resultado redondeado a las 3 primeras cifras decimales)");
         }
-        return resultado;
-}
+    }
 }
