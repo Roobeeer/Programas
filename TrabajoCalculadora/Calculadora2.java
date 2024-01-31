@@ -1,16 +1,17 @@
+package TrabajoCalculadora;
 import java.util.Scanner;
 
-class Matheq{
+class Calculadora2{
     static Scanner tec = new Scanner(System.in);
 
     public static void main(String[] args) {
         String cadena = "";
 
         do {
-            System.out.println("Introduce una cadena de operaciones con dos números Matheq");
+            System.out.println("Introduce una cadena de operaciones con dos números TrabajoCalculadora");
             System.out.print(">> ");
             cadena = tec.nextLine();
-            cadena = formulabuena(cadena);
+            cadena = Limpiarformula.formulabuena(cadena);
             System.out.println("Fórmula --> " + cadena);
 
             if (cadena.contains("salir")) {
@@ -61,8 +62,8 @@ class Matheq{
                 continue;
             }
 
-            double resultado = operaciones(op, a, b);
-            cadena = formulabuena(resultado + "");
+            double resultado = Operaciones.operaciones(op, a, b);
+            cadena = Limpiarformula.formulabuena(resultado + "");
             if(Math.floor(resultado)==resultado){
             System.out.println("Resultado --> " + (int)resultado);
             }else{
@@ -73,78 +74,4 @@ class Matheq{
 
         } while (!cadena.equalsIgnoreCase("salir"));
     }
-
-    static String formulabuena(String cadena) {
-        do {
-            cadena = cadena.replaceAll(" ", "");
-            cadena = cadena.replace("(", "").replace(")", "");
-            cadena = cadena.replace("++", "+").replace("--", "+").replace("+-", "-").replace("-+", "-");
-            // Eliminar signos duplicados
-            cadena = cadena.replaceAll("(\\+{2,})", "+");
-            cadena = cadena.replaceAll("-{2,}", "-");
-            cadena = cadena.replace("/+", "/");
-            cadena = cadena.replace("*+", "*");
-            if (cadena.startsWith("+")) {
-                cadena = cadena.substring(1);
-            }
-            return cadena;
-        } while (!cadena.equalsIgnoreCase("salir"));
-    }
-
-    static double suma(double a, double b) {
-        return a + b;
-    }
-
-    static double resta(double a, double b) {
-        return a - b;
-    }
-
-    static double multiplicacion(double a, double b) {
-        return a * b;
-    }
-
-    static double division(double a, double b) {
-        double resultado = 0;
-        if (b == 0) {
-            System.out.println("No se permite la división entre ceros");
-            return 0;
-        } else {
-            resultado = a / b;
-        }
-        return resultado;
-    }
-
-    static double elevar(double a, double b) {
-        if (b == 0) {
-            return 1;
-        } else {
-            return Math.pow(a, b);
-        }
-
-    }
-
-    static double operaciones(String operacion, double a, double b) {
-        double resultado = 0;
-        switch (operacion) {
-            case "+":
-                resultado = suma(a, b);
-                break;
-            case "-":
-                resultado = resta(a, b);
-                break;
-            case "*":
-                resultado = multiplicacion(a, b);
-                break;
-            case "/":
-                resultado = division(a, b);
-                break;
-            case "^":
-                resultado = elevar(a, b);
-                break;
-            default:
-                System.out.println("Inválido");
-                break;
-        }
-        return resultado;
-}
 }
