@@ -9,6 +9,8 @@ public class EjercicioExamen {
     boolean test2 = (false || test1);
     boolean test3 = true;
 
+    // TODO Hacer tal
+
     if(test1 || test2){
         System.out.println("La");
     }else{
