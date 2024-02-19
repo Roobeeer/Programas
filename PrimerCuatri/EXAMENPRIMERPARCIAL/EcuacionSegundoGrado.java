@@ -14,6 +14,7 @@ public class EcuacionSegundoGrado {
     double c = tec.nextDouble();
     double x1;
     double x2;
+    tec.close();
     if(a==0){
         if(b==0 && c==0){
             System.out.println("La ecuación tiene infinitos soluciones o es imposible de hallar un resultado");

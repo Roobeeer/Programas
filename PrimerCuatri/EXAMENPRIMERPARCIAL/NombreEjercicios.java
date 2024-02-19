@@ -11,6 +11,7 @@ class NombreEjercicios{
         String primerApellido = nombreya.substring(primerEspacioBlanco+1,segundoEspacioBlanco);
         String segundoApellido = nombreya.substring(segundoEspacioBlanco+1);
         int cantidadEspacios = 0;
+        tec.close();
         for(int i = 0;i<nombreya.length();i++){
             if(nombreya.charAt(i)==' '){
                 cantidadEspacios++;

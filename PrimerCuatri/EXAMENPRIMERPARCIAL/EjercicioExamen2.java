@@ -27,6 +27,6 @@ public class EjercicioExamen2 {
     }else{
         System.out.println("Debes introducir 'tirar' para tirar los dados y obtener un resultado.");
     }
-
+tec.close();
 }
 }
